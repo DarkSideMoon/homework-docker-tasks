@@ -1,0 +1,41 @@
+﻿@page "/news"
+
+@using BlazorNewsReader.Data
+@inject IItcNewsReaderService NewsReaderService
+
+<h1>News</h1>
+<p>This component demonstrates news.</p>
+
+@if (news == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var item in news)
+    {
+        <div>
+            <a href="@item.Link"><h4>@item.Title</h4></a>
+            Published: <b>@item.PublishDate</b>
+            <br />
+            By: <b>@item.Author</b>
+            <br />
+
+            Tags: [@foreach (var c in item.Categories)
+            {
+                <i>@c;</i>
+            }]
+
+            <span>@item.Text</span>
+        </div>
+    }
+}
+
+@code {
+    private IEnumerable<NewsModel> news;
+
+    protected override async Task OnInitializedAsync()
+    {
+        news = await NewsReaderService.GetNews();
+    }
+}

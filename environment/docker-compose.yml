@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  redis-persistent:
+    image: redis:alpine
+    command: redis-server --include /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis-persistent.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"

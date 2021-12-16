@@ -1,0 +1,42 @@
+﻿@page "/addnote"
+
+@using NoteApp.Model
+@using NoteApp.Services
+@inject INoteService NoteService
+
+<h3>AddNote</h3>
+
+<EditForm Model="@note" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Name:</label>
+        <InputText @bind-Value="note.Name" />
+    </div>
+    <div>
+        <label>Author:</label>
+        <InputText @bind-Value="note.Author" />
+    </div>
+    <div>
+        <label>Description:</label>
+        <InputTextArea @bind-Value="note.Description" />
+    </div>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@if (Result == true)
+{
+    <p><em>Successfully added note...</em></p>
+}
+
+@code {
+    private Note note = new();
+    private bool Result = false;
+
+    private async Task HandleValidSubmit()
+    {
+        Result = await NoteService.SetNote(note);
+    }
+}

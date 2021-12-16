@@ -1,0 +1,37 @@
+﻿@page "/notes"
+
+@using NoteApp.Model
+@using NoteApp.Services
+@inject INoteService NoteService
+
+<h1>All notes</h1>
+<p>This component demonstrates notes.</p>
+
+@if (notes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var item in notes)
+    {
+        <div>
+            <h4>@item.Name</h4>
+            CreateTime: <b>@item.CreateTime</b>
+            <br />
+            By: <b>@item.Author</b>
+            <br />
+
+            <span>@item.Description</span>
+        </div>
+    }
+}
+
+@code {
+    private IEnumerable<Note> notes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        notes = await NoteService.GetAllNotes();
+    }
+}

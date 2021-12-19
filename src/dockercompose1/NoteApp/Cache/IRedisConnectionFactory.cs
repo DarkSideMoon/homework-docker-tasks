@@ -8,5 +8,7 @@ namespace NoteApp.Cache
         ConnectionMultiplexer Connect();
 
         Task<ConnectionMultiplexer> ConnectAsync();
+
+        string GetConnectionString();
     }
 }

@@ -8,3 +8,13 @@ services:
       - ./redis-persistent.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"
+
+  note-app:
+#    build: 
+#      context: .
+#      dockerfile: NoteApp/Dockerfile
+    image: simple.note.app:1.0.2
+    ports:
+      - "5000:80"
+    depends_on:
+      - "redis-persistent"

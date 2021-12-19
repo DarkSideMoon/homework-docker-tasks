@@ -194,7 +194,7 @@ namespace NoteApp.Cache
         public async Task<IEnumerable<RedisKey>> GetAllKeys()
         {
             var redis = await _factory.ConnectAsync();
-            var server = redis.GetServer("localhost:6379");
+            var server = redis.GetServer(_factory.GetConnectionString());
             return server.Keys();
         }
 
@@ -216,5 +216,4 @@ namespace NoteApp.Cache
             return allItems;
         }
     }
-
 }

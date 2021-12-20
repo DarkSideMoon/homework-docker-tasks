@@ -1,3 +1,4 @@
+# All operating system dependencies, Cypress, and some browsers installed globally.	
 FROM cypress/included:9.1.1
 
 WORKDIR /app
